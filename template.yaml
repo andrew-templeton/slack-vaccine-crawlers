@@ -3,6 +3,9 @@ Transform: AWS::Serverless-2016-10-31
 Description: >-
   Crawlers!
 Parameters:
+  SlackDomain:
+    Type: string
+    Default: lifzar
   SecretForSlackKey:
     Type: String
     Default: SecretForSlackKey-mODtNGLkK3nO
@@ -51,6 +54,8 @@ Resources:
         Variables:
           SLACK_DOMAIN:
             Ref: SlackDomain
+          SLACK_SECRET:
+            Ref: SlackSecret
           ALAMODOME_CHANNEL:
             Ref: AlamodomeChannel
       Events:
@@ -75,6 +80,8 @@ Resources:
         Variables:
           SLACK_DOMAIN:
             Ref: SlackDomain
+          SLACK_SECRET:
+            Ref: SlackSecret
           ALBERTSONS_CHANNEL:
             Ref: AlbertsonsChannel
       Events:
@@ -99,6 +106,8 @@ Resources:
         Variables:
           SLACK_DOMAIN:
             Ref: SlackDomain
+          SLACK_SECRET:
+            Ref: SlackSecret
           BELL_COUNTY_CHANNEL:
             Ref: BellCountyChannel
       Events:
@@ -123,6 +132,8 @@ Resources:
         Variables:
           SLACK_DOMAIN:
             Ref: SlackDomain
+          SLACK_SECRET:
+            Ref: SlackSecret
           CORYELL_HEALTH_CHANNEL:
             Ref: CoryellHealthChannel
       Events:
@@ -147,6 +158,8 @@ Resources:
         Variables:
           SLACK_DOMAIN:
             Ref: SlackDomain
+          SLACK_SECRET:
+            Ref: SlackSecret
           FALLS_HOSPITAL_CHANNEL:
             Ref: FallsHospitalChannel
       Events:
@@ -171,6 +184,8 @@ Resources:
         Variables:
           SLACK_DOMAIN:
             Ref: SlackDomain
+          SLACK_SECRET:
+            Ref: SlackSecret
           HEB_CHANNEL:
             Ref: HebChannel
       Events:
@@ -195,6 +210,8 @@ Resources:
         Variables:
           SLACK_DOMAIN:
             Ref: SlackDomain
+          SLACK_SECRET:
+            Ref: SlackSecret
           UNIVERISITY_CHANNEL:
             Ref: UniversityChannel
       Events:
@@ -219,6 +236,8 @@ Resources:
         Variables:
           SLACK_DOMAIN:
             Ref: SlackDomain
+          SLACK_SECRET:
+            Ref: SlackSecret
           WALGREENS_CHANNEL:
             Ref: WalgreensChannel
       Events:
@@ -243,6 +262,8 @@ Resources:
         Variables:
           SLACK_DOMAIN:
             Ref: SlackDomain
+          SLACK_SECRET:
+            Ref: SlackSecret
           WALMART_CHANNEL:
             Ref: WalmartChannel
       Events:

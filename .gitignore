@@ -103,4 +103,7 @@ dist
 # TernJS port file
 .tern-port
 
-.DS_Store.aws-sam
+.DS_Store
+.aws-sam
+
+
