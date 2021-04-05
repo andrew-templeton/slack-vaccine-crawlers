@@ -4,7 +4,7 @@ Description: >-
   Crawlers!
 Parameters:
   SlackDomain:
-    Type: string
+    Type: String
     Default: lifzar
   SecretForSlackKey:
     Type: String
