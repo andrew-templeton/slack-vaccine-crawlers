@@ -1,7 +1,7 @@
 
 const SLACK_API = 'https://slack.com/api/chat.postMessage'
-const Axios = require('Axios')
-const SlackInboundSecret = require('./src/slackInboundSecret')
+const Axios = require('axios')
+const SlackInboundSecret = require('./slackInboundSecret')
 
 const authConfig = async () => ({ headers: { Authorization: `Bearer ${(await SlackInboundSecret()).en}` } })
 
