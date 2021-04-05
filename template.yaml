@@ -55,7 +55,7 @@ Resources:
           SLACK_DOMAIN:
             Ref: SlackDomain
           SLACK_SECRET:
-            Ref: SlackSecret
+            Ref: SecretForSlackKey
           ALAMODOME_CHANNEL:
             Ref: AlamodomeChannel
       Events:
@@ -81,7 +81,7 @@ Resources:
           SLACK_DOMAIN:
             Ref: SlackDomain
           SLACK_SECRET:
-            Ref: SlackSecret
+            Ref: SecretForSlackKey
           ALBERTSONS_CHANNEL:
             Ref: AlbertsonsChannel
       Events:
@@ -107,7 +107,7 @@ Resources:
           SLACK_DOMAIN:
             Ref: SlackDomain
           SLACK_SECRET:
-            Ref: SlackSecret
+            Ref: SecretForSlackKey
           BELL_COUNTY_CHANNEL:
             Ref: BellCountyChannel
       Events:
@@ -133,7 +133,7 @@ Resources:
           SLACK_DOMAIN:
             Ref: SlackDomain
           SLACK_SECRET:
-            Ref: SlackSecret
+            Ref: SecretForSlackKey
           CORYELL_HEALTH_CHANNEL:
             Ref: CoryellHealthChannel
       Events:
@@ -159,7 +159,7 @@ Resources:
           SLACK_DOMAIN:
             Ref: SlackDomain
           SLACK_SECRET:
-            Ref: SlackSecret
+            Ref: SecretForSlackKey
           FALLS_HOSPITAL_CHANNEL:
             Ref: FallsHospitalChannel
       Events:
@@ -185,7 +185,7 @@ Resources:
           SLACK_DOMAIN:
             Ref: SlackDomain
           SLACK_SECRET:
-            Ref: SlackSecret
+            Ref: SecretForSlackKey
           HEB_CHANNEL:
             Ref: HebChannel
       Events:
@@ -211,7 +211,7 @@ Resources:
           SLACK_DOMAIN:
             Ref: SlackDomain
           SLACK_SECRET:
-            Ref: SlackSecret
+            Ref: SecretForSlackKey
           UNIVERISITY_CHANNEL:
             Ref: UniversityChannel
       Events:
@@ -237,7 +237,7 @@ Resources:
           SLACK_DOMAIN:
             Ref: SlackDomain
           SLACK_SECRET:
-            Ref: SlackSecret
+            Ref: SecretForSlackKey
           WALGREENS_CHANNEL:
             Ref: WalgreensChannel
       Events:
@@ -263,7 +263,7 @@ Resources:
           SLACK_DOMAIN:
             Ref: SlackDomain
           SLACK_SECRET:
-            Ref: SlackSecret
+            Ref: SecretForSlackKey
           WALMART_CHANNEL:
             Ref: WalmartChannel
       Events:
