@@ -30,7 +30,7 @@ const checkWalgreens = async () => {
 
     const walgreensStores = data.features.filter((location) => {
       const {provider_brand, appointments, city} = location.properties;
-      return provider_brand === 'walgreens' && appointments?.length > 10 && !excludedStores.includes(city);
+      return provider_brand === 'walgreens' && appointments && appointments.length > 10 && !excludedStores.includes(city);
     });
 
     if (lastRunSlotCount.length === 0) {
@@ -42,7 +42,7 @@ const checkWalgreens = async () => {
     walgreensStores.forEach((store) => {
       const {id, city, name, appointments, postal_code} = store.properties;
       const lastFound = lastRunSlotCount.find((locale) => locale.properties.id === id);
-      const lastRunLength = lastFound?.properties.appointments?.length || 0;
+      const lastRunLength = (lastFound && lastFound.properties && lastFound.properties.appointments && lastFound.properties.appointments.length) || 0;
       const prettyCity = capitalizeSentance(city);
 
       if (appointments.length > (lastRunLength + 10)) {
