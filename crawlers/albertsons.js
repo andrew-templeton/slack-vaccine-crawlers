@@ -1,6 +1,5 @@
 
 const fetch = require('node-fetch');
-const {IncomingWebhook} = require('@slack/webhook');
 const texasRandalls = require('../schemas/randalls_locations.json');
 const renderSlackMessage = require('../utils/renderSlackMessage');
 
