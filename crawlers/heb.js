@@ -1,13 +1,17 @@
-require('dotenv').config();
+
 const fetch = require('node-fetch');
-const {IncomingWebhook} = require('@slack/webhook');
+
 const renderSlackMessage = require('../utils/renderSlackMessage');
 const capitalizeSentance = require('../utils/capitalizeSentance');
 const hebURL = 'https://heb-ecom-covid-vaccine.hebdigital-prd.com/vaccine_locations.json';
 const scheduleURL = 'https://vaccine.heb.com/scheduler';
 
-const webhookURL = process.env.HEB_WEBHOOK_URL;
-const webhook = new IncomingWebhook(webhookURL);
+
+const PostAsBot = require('../utils/postAsBot')
+const { HEB_CHANNEL:channel } = process.env
+const notify = async message => await PostAsBot({ ...message, channel })
+
+
 
 let lastRunSlotCount = [];
 
@@ -79,7 +83,7 @@ const checkHeb = async () => {
 
     if (slackFields.length > 0) {
       const slackMessage = renderSlackMessage(scheduleURL, slackFields);
-      await webhook.send(slackMessage);
+      await notify(slackMessage);
     }
 
     lastRunSlotCount = vaccineLocations['locations'];

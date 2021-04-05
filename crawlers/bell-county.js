@@ -1,10 +1,12 @@
-require('dotenv').config();
+
 const fetch = require('node-fetch');
-const {IncomingWebhook} = require('@slack/webhook');
 const renderBellSlackMessage = require('../utils/renderBellSlackMessage');
 
-const url = process.env.BELL_WEBHOOK_URL;
-const webhook = new IncomingWebhook(url);
+
+const PostAsBot = require('../utils/postAsBot')
+const { BELL_COUNTY_CHANNEL:channel } = process.env
+const notify = async message => await PostAsBot({ ...message, channel })
+
 
 const killeenURL = 'https://outlook.office365.com/owa/calendar/BellCountyTechnologyServices1@bellcountytx.onmicrosoft.com/bookings/service.svc/GetStaffBookability';
 const beltonURL = 'https://outlook.office365.com/owa/calendar/BellCountyTechnologyServices3@bellcountytx.onmicrosoft.com/bookings/service.svc/GetStaffBookability';
@@ -76,12 +78,12 @@ const checkBellCounty = async () => {
     if (killeenBookableItems.length > 1 && now > (lastBookedKilleen + interval)) {
       lastBookedKilleen = now;
       const slackMessage = renderBellSlackMessage(killeenScheduleURL, 'Killeen');
-      await webhook.send(slackMessage);
+      await notify(slackMessage);
     }
     if (beltonBookableItems.length > 0 && now > (lastBookedBelton + interval)) {
       lastBookedBelton = now;
       const slackMessage = renderBellSlackMessage(beltonScheduleURL, 'Belton');
-      await webhook.send(slackMessage);
+      await notify(slackMessage);
     }
   } catch (e) {
     console.error(e);

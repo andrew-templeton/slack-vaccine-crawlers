@@ -1,12 +1,12 @@
-require('dotenv').config();
+
 const fetch = require('node-fetch');
-const {IncomingWebhook} = require('@slack/webhook');
 const renderDomeSlackMessage = require('../utils/renderDomeSlackMessage');
 const alamoURL = 'https://patportal.cdpehs.com/ezEMRxPHR/html/login/newPortalReg.jsp';
 const alamoAPI = 'https://patportal.cdpehs.com/ezEMRxPHR/dwr/exec/AppointmentSchdlrAction.getMassProgramScheduleDet.dwr';
 
-const url = process.env.ALAMO_WEBHOOK_URL;
-const webhook = new IncomingWebhook(url);
+const PostAsBot = require('../utils/postAsBot')
+const { ALAMODOME_CHANNEL:channel } = process.env
+const notify = async message => await PostAsBot({ ...message, channel })
 
 const options = {
   'headers': {
@@ -31,7 +31,7 @@ const checkAlamodome = async () => {
     const response = await fetch(alamoAPI, options);
     const data = await response.text();
     if (data.includes('value')) {
-      await webhook.send(renderDomeSlackMessage(alamoURL));
+      await notify(renderDomeSlackMessage(alamoURL));
     }
   } catch (e) {
     console.error(e);

@@ -1,14 +1,17 @@
-require('dotenv').config();
+
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 const jp = require('jsonpath');
-const {IncomingWebhook} = require('@slack/webhook');
 const renderUniversitySlackMessage = require('../utils/renderUniversitySlackMessage');
 const getDateString = require('../utils/getDateString');
 const universityURL = 'https://mychart-openscheduling.et1130.epichosted.com/MyChart/SignupAndSchedule/EmbeddedSchedule?id=51748&dept=10554003&vt=1788';
 
-const url = process.env.UNIVERSITY_WEBHOOK_URL;
-const webhook = new IncomingWebhook(url);
+
+const PostAsBot = require('../utils/postAsBot')
+const { UNIVERISITY_CHANNEL:channel } = process.env
+const notify = async message => await PostAsBot({ ...message, channel })
+
+
 
 const noCache = Math.random();
 const universityAPI = `https://mychart-openscheduling.et1130.epichosted.com/MyChart/OpenScheduling/OpenScheduling/GetOpeningsForProvider?noCache=${noCache}`;
@@ -71,7 +74,7 @@ const checkUniversity = async () => {
   if (appointmentCount > 0) {
     const message = appointmentCount === 1 ? `*${appointmentCount}* slot` : `*${appointmentCount}* slots`;
     try {
-      await webhook.send(renderUniversitySlackMessage(universityURL, message));
+      await notify(renderUniversitySlackMessage(universityURL, message));
     } catch (e) {
       console.error(e);
     }

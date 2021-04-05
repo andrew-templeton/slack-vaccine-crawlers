@@ -1,15 +1,18 @@
 const fetch = require('node-fetch');
-const dotenv = require('dotenv');
-const {IncomingWebhook} = require('@slack/webhook');
+
 const renderSlackMessage = require('../utils/renderSlackMessage');
 
 const coryellURL = 'https://app.blockitnow.com/consumer/coryell-health/search?specialtyId=45a5acfb-ce82-473a-b320-7f415658031b&procedureId=a562eea5-c72b-4032-b2ba-1c15f3b444bb';
 const coryellScheduleURL = 'https://api.blockitnow.com/';
 
-dotenv.config();
 
-const webhookURL = process.env.CORYELL_WEBHOOK_URL;
-const webhook = new IncomingWebhook(webhookURL);
+
+const PostAsBot = require('../utils/postAsBot')
+const { CORYELL_HEALTH_CHANNEL:channel } = process.env
+const notify = async message => await PostAsBot({ ...message, channel })
+
+
+
 const query = `query SearchProfilesInOrganizationQuery($organizationId: ID!, $page: Int, $pageSize: Int, $searchProfilesInput: SearchProfilesInput!) {
   searchProfilesInOrganization(organizationId: $organizationId, page: $page, pageSize: $pageSize, searchProfilesInput: $searchProfilesInput) {
     id
@@ -127,7 +130,7 @@ const checkCoryell = async () => {
     }
     if (slackFields.length > 0) {
       const slackMessage = renderSlackMessage(coryellURL, slackFields);
-      await webhook.send(slackMessage);
+      await notify(slackMessage);
     }
   } catch (e) {
     console.error(e);

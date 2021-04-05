@@ -1,5 +1,5 @@
 {
-  "name": "texas-vaccines-node",
+  "name": "slack-vaccine-crawlers",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,11 +10,11 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "@slack/webhook": "^6.0.0",
+    "aws-sdk": "^2.879.0",
+    "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.5",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonpath": "^1.1.0",
     "node-cron": "^2.0.3",

@@ -1,12 +1,16 @@
-require('dotenv').config();
+
 const fetch = require('node-fetch');
-const {IncomingWebhook} = require('@slack/webhook');
 const getDateString = require('../utils/getDateString');
 const renderFallsSlackMessage = require('../utils/renderFallsSlackMessage');
 const scheduleURL = 'https://covid.fallshospital.com/schedule/';
 
-const webhookURL = process.env.FALLSHOSPITAL_WEBHOOK_URL;
-const webhook = new IncomingWebhook(webhookURL);
+
+
+const PostAsBot = require('../utils/postAsBot')
+const { FALLS_HOSPITAL_CHANNEL:channel } = process.env
+const notify = async message => await PostAsBot({ ...message, channel })
+
+
 
 const dateString = getDateString();
 const futureDateString = getDateString(30);
@@ -48,7 +52,7 @@ const checkFallsHospital = async () => {
       const thisTime = data.data.length;
       if (thisTime > (lastTime + 15) || thisTime < (lastTime - 15)) {
         lastTime = data.data.length;
-        await webhook.send(renderFallsSlackMessage(scheduleURL, lastTime));
+        await notify(renderFallsSlackMessage(scheduleURL, lastTime));
       }
     }
   } catch (e) {

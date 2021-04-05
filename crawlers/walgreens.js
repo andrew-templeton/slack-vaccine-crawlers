@@ -1,13 +1,16 @@
-require('dotenv').config();
+
 const fetch = require('node-fetch');
-const {IncomingWebhook} = require('@slack/webhook');
 const renderSlackMessage = require('../utils/renderSlackMessage');
 const capitalizeSentance = require('../utils/capitalizeSentance');
 const walgreensURL = 'https://www.vaccinespotter.org/api/v0/states/TX.json';
 const scheduleURL = 'https://www.walgreens.com/findcare/vaccination/covid-19';
 
-const webhookURL = process.env.WALGREENS_WEBHOOK_URL;
-const webhook = new IncomingWebhook(webhookURL);
+
+const PostAsBot = require('../utils/postAsBot')
+const { WALGREENS_CHANNEL:channel } = process.env
+const notify = async message => await PostAsBot({ ...message, channel })
+
+
 
 let lastRunSlotCount = [];
 
@@ -56,7 +59,7 @@ const checkWalgreens = async () => {
 
     if (slackFields.length > 0) {
       const slackMessage = renderSlackMessage(scheduleURL, slackFields);
-      await webhook.send(slackMessage);
+      await notify(slackMessage);
     }
 
     lastRunSlotCount = walgreensStores;
